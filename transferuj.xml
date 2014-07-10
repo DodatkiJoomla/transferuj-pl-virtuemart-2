@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<install version="1.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>VM - Płatność, Transferuj.pl</name>
+    <creationDate>2014-07-09</creationDate>
+    <author>Dodatkijoomla.pl</author>
+    <copyright>Copyright (c) 2014 DodatkiJoomla.pl</copyright>
+    <license>GNU/GPL v2</license>
+    <authorEmail>kontakt@dodatkijoomla.pl</authorEmail>
+    <authorUrl>http://dodatkijoomla.pl</authorUrl>
+    <version>1.4.0</version>
+    <description>Plugin płatności online - Transferuj.pl.</description>
+    <languages></languages>
+    <files>
+		<filename plugin="transferuj">transferuj.php</filename>
+		<folder>js</folder>  
+    </files>
+    <params addpath="/administrator/components/com_virtuemart/elements">
+	
+		<param type="vmjpluginwarning" />
+		
+		<param type="spacer" default="&lt;b&gt;Podstawowe ustawienia&lt;/b&gt;" />
+
+		<param name="transferuj_id" type="text"  label="ID - identyfikator Sprzedawcy" description=" &lt;/br&gt; &lt;/br&gt; ID konta w systemie Transferuj.pl, na rzecz którego dokonywana jest patność." />
+		<param name="transferuj_kod_potwierdzajacy" type="text"  label="Kod potwierdzający Sprzedawcy" description=" &lt;/br&gt; &lt;/br&gt; Kod potwierdzający ustawiany jest w  Panelu sprzedawcy w zakładce Ustawienia > Powiadomienia sekcja Bezpieczeństwo." />
+		<param name="transferuj_online" type="list" default="0" label="Tylko kanały online:"  description=" &lt;/br&gt; &lt;/br&gt; Pozwól tylko na płatności online - uniemożliwia wybór kanału, który w danej chwili nie jest w stanie zaksięgować płatności w czasie rzeczywistym." >
+            <option value="0">Nie</option>
+            <option value="1">Tak</option>
+        </param>        
+		<param name="transferuj_formularz" type="list" default="1" label="Wybór kanału płatności:"  description=" &lt;/br&gt; &lt;/br&gt; Wybierz czy klient wybiera kanał płatności jeszcze po stronie sklepu, czy po przekierowaniu na Transferuj.pl." >
+            <option value="0">Na podstronie Transferuj.pl</option>
+            <option value="1">Na podstronie sklepu</option>
+        </param>
+
+		<param type="spacer" />
+		<param type="spacer" default="&lt;b&gt;Ustawienia potwierdzeń &lt;/b&gt;" />
+				
+		<param name="transferuj_wyn_url" type="text" label="Adres zwrotny dla potwierdzeń" description="&lt;/br&gt; &lt;/br&gt; Wynikowy adres zwrotny URL, na który zostanie wysłany wynik transakcji. UWAGA: ustaw tą wartość w Panelu Sprzedawcy (zakładka Ustawienia  - Powiadomienia), aby zamówienia były poprawnie i automatycznie zatwierdzane." size="140" />
+		
+		<param type="spacer" />
+		<param type="spacer" default="&lt;b&gt;Ustawienia statusów &lt;/b&gt;" />
+		
+		<param name="status_pending" type="vmorderstate" scope="com_virtuemart" default="P" label="Status zamówienia po złożeniu zamówienia" description="" />
+		<param name="status_success" type="vmorderstate" scope="com_virtuemart" default="C" label="Status zamówienia przy płatności poprawnej" description="" />
+		<param name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="P" label="Status zamówienia przy płatności błędnej (zalecana pending/oczekująca)" description="" />
+		
+		<param type="spacer" />
+		<param type="spacer" default="&lt;b&gt;Ustawienia dodatkowe &lt;/b&gt;" />
+		
+		<!-- kasa -->
+        <!-- DJ 2014-07-09 Zmieniam nazwę -->
+		<param name="cost_per_transaction" type="text"  label="Opłata dodatkowa wyboru płatności (stała)" description="&lt;/br&gt; &lt;/br&gt; Opłata doliczana do zamówienia, wyrażona w stałych wartościach.&lt;/br&gt; Np. wartość 5, doda 5 PLN (lub domyślnej waluty) do rachunku za używanie tej metody płatności. &lt;/br&gt; Przykładowe wartości: 5, 1.1, -1 " />
+		<param name="cost_percent_total" type="text"  label="Opłata dodatkowa zależna od wartości zamówienia (procent od zamówienia)" description="&lt;/br&gt; &lt;/br&gt; Opłata doliczana do zamówienia, wyrażona w % wartościach zamówienia.&lt;/br&gt; Np. wartość 12, to 12% wartości zamówienia. &lt;/br&gt; Przykładowe wartości: 5 (+5% do wartości zam.), 100 (+100% do wartości zam.), -5.5 " />
+
+        <param name="tax_id" type="vmtaxes" scope="com_virtuemart"  label="Podatek" description=" &lt;/br&gt; &lt;/br&gt;Stawka podatkowa dla płatności" />
+		<!-- inne -->
+
+		<param name="autoredirect" type="radio" default="1" label="Automatyczne przekierowanie (jeśli wybór kanału po stronie Transferuj.pl)" description=" &lt;/br&gt; &lt;/br&gt;Jeśli włączone, skrypt automatycznie przekierowuje użytkownika do systemu płatności po potwierdzeniu zamówienia.&lt;/br&gt;  Jeśli nie - użytkownik bedzie musiał kliknąć w grafikę z pola 'Wybierz grafikę płatności dla podstrony potwierdzenia zamówienia'" >
+			<option value="0">COM_VIRTUEMART_NO</option>
+			<option value="1">COM_VIRTUEMART_YES</option>
+		</param>
+		
+		<param name="powiadomienia" type="radio" default="1" label="Powiadomienia e-mail o zmianie statusu zamówienia" description=" &lt;/br&gt; &lt;/br&gt;Jeśli włączone, wysyła powiadomienie o zmianie statusu zamówienia na adres e-mail klienta.'" >
+			<option value="0">COM_VIRTUEMART_NO</option>
+			<option value="1">COM_VIRTUEMART_YES</option>
+		</param>
+		
+		<!-- wygląd -->		
+		<param name="payment_logos" type="imagelist" directory="images/stories/virtuemart/payment" default="" label="Logo płatności w koszyku i zamówieniu" description=" &lt;/br&gt; &lt;/br&gt;Logo płatności widoczne w koszyku, wyborze płatności i procesie zamówienia. &lt;/br&gt;  &lt;b&gt;  Możesz dodać własne grafiki wrzucając je do katalogu /images/stories/virtuemart/payment &lt;/b&gt;" />
+		
+		<param name="payment_image" type="imagelist" directory="images/stories/virtuemart/payment" default="" label="Wybierz grafikę płatności dla podstrony potwierdzenia zamówienia" description=" &lt;/br&gt; &lt;/br&gt;Widoczna w ostatnim etapie składania zamówienia. &lt;/br&gt;   &lt;b&gt;Możesz dodać własne grafiki wrzucając je do katalogu /images/stories/virtuemart/payment &lt;/b&gt;" />
+		
+		<param name="checkout_text" type="text" size="100" label="Tekst zamieszony pod grafiką na podstronie potwierdzenia zamówienia" default="Kliknij w powyższą grafikę aby dokonać płatności" />
+
+
+        <param type="spacer" default="
+		&lt;/td&gt; 
+		&lt;/tr&gt;
+		&lt;/table&gt;
+		&lt;table style='width: 100%'&gt;
+		&lt;tr&gt;
+		&lt;td&gt;
+		
+		&lt;center&gt; 
+
+		&lt;/br&gt; &lt;/br&gt;Stworzone przez:&lt;/br&gt;
+		&lt;a target='_blank' href='http://dodatkijoomla.pl/index.php?in=transferuj'&gt;   &lt;img border=0 src='http://dodatkijoomla.pl/images/logo_podpis_site_mini.png'&gt;  &lt;/a&gt;
+		&lt;p&gt; Szukaj najlepszych rozszerzeń dla Joomla na &lt;a target='_blank' href='http://dodatkijoomla.pl/index.php?in=transferuj'&gt;DodatkiJoomla.pl &lt;/a&gt;  &lt;/p&gt; 
+		&lt;/center&gt;
+		" />
+    </params>
+</install>
